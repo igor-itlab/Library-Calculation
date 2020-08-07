@@ -4,10 +4,12 @@
 namespace Calculation;
 
 
+use Calculation\Entity\PairUnitInterface;
+
 class Payin implements CalculationInterface
 {
 
-    public function calculateOnChangeValue(): float
+    public function calculateOnChangeValue(float $count, PairUnitInterface $payin, PairUnitInterface $payout): float
     {
         // TODO: Implement calculateOnChangeValue() method.
     }
