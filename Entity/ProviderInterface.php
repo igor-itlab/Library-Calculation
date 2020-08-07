@@ -13,5 +13,9 @@ interface ProviderInterface
      * @return string
      */
     public function getName(): string;
-    public function getProviderCommission(): Collection;
+
+    /**
+     * @return ProviderFeeInterface
+     */
+    public function getProviderCommission(): ProviderFeeInterface;
 }

@@ -14,12 +14,12 @@ class Payin implements CalculationInterface
         // TODO: Implement calculateOnChangeValue() method.
     }
 
-    public function calculateMinValue(): float
+    public function calculateMinValue(PairUnitInterface $payin, PairUnitInterface $payout): float
     {
         // TODO: Implement calculateMinValue() method.
     }
 
-    public function calculateMaxValue(): float
+    public function calculateMaxValue(PairUnitInterface $payin, PairUnitInterface $payout): float
     {
         // TODO: Implement calculateMaxValue() method.
     }

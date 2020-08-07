@@ -4,17 +4,17 @@
 namespace Calculation\Entity;
 
 
-interface ProviderCommissionInterface
+interface ProviderFeeInterface
 {
     /**
-     * @return string
+     * @return float
      */
-    public function getPercent(): string;
+    public function getPercent(): float;
 
     /**
-     * @return string
+     * @return float
      */
-    public function getConstant(): string;
+    public function getConstant(): float;
 
     /**
      * @return float
