@@ -1,0 +1,28 @@
+{
+  "name": "itlab-studio/calculation",
+  "type": "library",
+  "description": "Library for calculating the exchange rate for buying and selling currencies",
+  "version": "1.0.0",
+  "keywords": ["exchanger", "calculation", "standards", "course", "payin", "payout"],
+  "homepage": "https://itlab-studio.com/",
+  "license": "ITLab-Studio",
+  "authors": [
+    {
+      "name": "ITLab-Studio Development",
+      "email": "igor-tolstoy@itlab-studio.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.5",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": { "Calculation\\": "" }
+  },
+  "extra": {
+    "symfony": {
+      "require": "^3.4 || ^4.0 || ^5.0"
+    }
+  },
+  "minimum-stability": "dev"
+}
