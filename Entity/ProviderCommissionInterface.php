@@ -25,4 +25,9 @@ interface ProviderCommissionInterface
      * @return float
      */
     public function getMaxContribution(): float;
+
+    /**
+     * @return string
+     */
+    public function exchangeType(): string;
 }

@@ -15,4 +15,6 @@ interface PaymentSystemInterface
      * @return string
      */
     public function getTag(): string;
+
+    public function getCostPrice(): float;
 }
