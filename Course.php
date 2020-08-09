@@ -7,6 +7,10 @@ namespace Calculation;
 use Calculation\Entity\PairInterface;
 use Calculation\Entity\PairUnitInterface;
 
+/**
+ * Class Course
+ * @package Calculation
+ */
 class Course
 {
     public static function calculateCourse(PairInterface $pair): float
