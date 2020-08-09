@@ -4,6 +4,10 @@
 namespace Calculation\Entity;
 
 
+/**
+ * Interface PairUnitInterface
+ * @package Calculation\Entity
+ */
 interface PairUnitInterface
 {
     /**

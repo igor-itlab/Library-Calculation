@@ -9,7 +9,7 @@ use Calculation\Entity\PairUnitInterface;
 
 class Course
 {
-    public static function calculateCourse(PairInterface $pair, PairUnitInterface $payin, PairUnitInterface $payout): float
+    public static function calculateCourse(PairInterface $pair): float
     {
         $payinCourse = $payout->getCurrency()->getCoursePayout()
             * ((100 + $pair->getPercent()) / 100)
