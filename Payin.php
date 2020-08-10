@@ -16,33 +16,53 @@ class Payin implements CalculationInterface
     /**
      * @param float $count
      * @param PairInterface $pair
-     * @return float
+     * @return float payin with system commission
      */
-    static public function calculateOnChangeValue(float $count, PairInterface $pair): float
+    public static function calculateOnChangeValue(float $count, PairInterface $pair): float
     {
-//        $course = Course::calculateCourse();
-//
-//        $countWithCommission = $count - ($count * $paymentPercent) / 100 - $paymentConstant;
-//        $countReceivedByCourse = $countWithCommission / $course;
-//
-//        $countWithSystemCommission = $countReceivedByCourse * (1 - $exchangePercent / 100) - $exchangeConstant;
+        $payoutWithCommission = $count - ($count * $pair->getPayinObject()->getProvider()->getPercent()['inFee'])
+            / 100 - $pair->getPayinObject()->getProvider()->getConstant()['inFee'];
+        $payinReceivedByCourse = $payoutWithCommission / Course::calculateCourse($pair);
+
+        return $payinReceivedByCourse * (1 - $pair->getPayoutObject()->getProvider()->getPercent()['outFee'] / 100)
+            - $pair->getPayoutObject()->getProvider()->getConstant()['outFee'];
     }
 
     /**
      * @param PairInterface $pair
      * @return float|void
      */
-    static public function calculateMinValue(PairInterface $pair)
+    public static function calculateMinValue(PairInterface $pair)
     {
-        // TODO: Implement calculateMinValue() method.
+        $onChangeValue = Payout::calculateOnChangeValue($pair->getPayoutObject()->getProvider()->getMinContribution()['inFee'], $pair);
+
+        if ($pair->getPayinObject()->getProvider()->getMinContribution()['inFee'] < $onChangeValue) {
+            $minPayout = ceil($onChangeValue);
+            $minPayin = self::calculateOnChangeValue(ceil($onChangeValue), $pair);
+        } else {
+            $minPayout = ceil($pair->getPayinObject()->getProvider()->getMinContribution()['inFee']);
+            $minPayin = self::calculateOnChangeValue(ceil($pair->getPayinObject()->getProvider()->getMinContribution()['inFee']), $pair);
+        }
+
+        return json_encode(['minPayin' => $minPayin, 'minPayout' => $minPayout]);
     }
 
     /**
      * @param PairInterface $pair
      * @return float|void
      */
-    static public function calculateMaxValue(PairInterface $pair)
+    public static function calculateMaxValue(PairInterface $pair)
     {
-        // TODO: Implement calculateMaxValue() method.
+        $onChangeValue = Payin::calculateOnChangeValue($pair->getPayoutObject()->getProvider()->getMaxContribution()['outFee'], $pair);
+
+        if ($pair->getPayinObject()->getProvider()->getMaxContribution()['inFee'] < $onChangeValue) {
+            $maxPayout = ceil($pair->getPayinObject()->getProvider()->getMaxContribution()['inFee']);
+            $maxPayin = self::calculateOnChangeValue(ceil($maxPayout), $pair);
+        } else {
+            $maxPayout = ceil($onChangeValue);
+            $maxPayin = self::calculateOnChangeValue(ceil($onChangeValue), $pair);
+        }
+
+        return json_encode(['maxPayin' => $maxPayin, 'maxPayout' => $maxPayout]);
     }
 }
