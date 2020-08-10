@@ -31,18 +31,43 @@ class ChangeConfig implements ChangeConfigInterface
         $this->course = $course;
     }
 
+    /**
+     * @return float
+     */
     public function getPercent(): float
     {
         return $this->fee->getPercent();
     }
 
+    /**
+     * @return float
+     */
     public function getConstant(): float
     {
         return $this->fee->getConstant();
     }
 
+    /**
+     * @return float
+     */
     public function getCourse(): float
     {
         return $this->course;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMinContribution(): float
+    {
+        return $this->fee->getMinContribution();
+    }
+
+    /**
+     * @return float
+     */
+    public function getMaxContribution(): float
+    {
+        return $this->fee->getMaxContribution();
     }
 }
