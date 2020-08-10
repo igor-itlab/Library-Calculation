@@ -5,11 +5,25 @@
   "version": "1.0.0",
   "keywords": ["exchanger", "calculation", "standards", "course", "payin", "payout"],
   "homepage": "https://itlab-studio.com/",
-  "license": "ITLab-Studio",
+  "license": "MIT",
   "authors": [
     {
       "name": "ITLab-Studio Development",
       "email": "igor-tolstoy@itlab-studio.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type":"package",
+      "package": {
+        "name": "itlab-studio/calculation",
+        "version":"master",
+        "source": {
+          "url": "https://github.com/igor-itlab/Library-Calculation.git",
+          "type": "git",
+          "reference":"master"
+        }
+      }
     }
   ],
   "require": {
