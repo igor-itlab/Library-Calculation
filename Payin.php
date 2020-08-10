@@ -30,7 +30,8 @@ class Payin implements CalculationInterface
 
     /**
      * @param PairInterface $pair
-     * @return float|void
+     * @return false|string
+     * @throws \JsonException
      */
     public static function calculateMinValue(PairInterface $pair)
     {
@@ -44,16 +45,17 @@ class Payin implements CalculationInterface
             $minPayin = self::calculateOnChangeValue(ceil($pair->getPayinObject()->getProvider()->getMinContribution()['inFee']), $pair);
         }
 
-        return json_encode(['minPayin' => $minPayin, 'minPayout' => $minPayout]);
+        return json_encode(['minPayin' => $minPayin, 'minPayout' => $minPayout], JSON_THROW_ON_ERROR);
     }
 
     /**
      * @param PairInterface $pair
-     * @return float|void
+     * @return false|string
+     * @throws \JsonException
      */
     public static function calculateMaxValue(PairInterface $pair)
     {
-        $onChangeValue = Payin::calculateOnChangeValue($pair->getPayoutObject()->getProvider()->getMaxContribution()['outFee'], $pair);
+        $onChangeValue = Payout::calculateOnChangeValue($pair->getPayoutObject()->getProvider()->getMaxContribution()['outFee'], $pair);
 
         if ($pair->getPayinObject()->getProvider()->getMaxContribution()['inFee'] < $onChangeValue) {
             $maxPayout = ceil($pair->getPayinObject()->getProvider()->getMaxContribution()['inFee']);
@@ -63,6 +65,6 @@ class Payin implements CalculationInterface
             $maxPayin = self::calculateOnChangeValue(ceil($onChangeValue), $pair);
         }
 
-        return json_encode(['maxPayin' => $maxPayin, 'maxPayout' => $maxPayout]);
+        return json_encode(['maxPayin' => $maxPayin, 'maxPayout' => $maxPayout], JSON_THROW_ON_ERROR);
     }
 }
