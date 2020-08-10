@@ -11,7 +11,7 @@ use Calculation\Entity\PairInterface;
  * Class Payin
  * @package Calculation
  */
-class Payin implements CalculationInterface
+class Payin extends CalculationState
 {
     /**
      * @param float $count

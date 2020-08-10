@@ -10,7 +10,7 @@ use Calculation\Entity\PairInterface;
  * Class Payout
  * @package Calculation
  */
-class Payout extends CalculationState implements CalculationInterface
+class Payout extends CalculationState
 {
     /**
      * @param float $count

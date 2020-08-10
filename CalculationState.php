@@ -4,11 +4,13 @@
 namespace Calculation;
 
 
+use Calculation\Entity\PairInterface;
+
 /**
  * Class CalculationState
  * @package Calculation
  */
-abstract class CalculationState
+abstract class CalculationState implements CalculationInterface
 {
     /**
      * @var CalculationContext
@@ -19,4 +21,10 @@ abstract class CalculationState
     {
         $this->context = $context;
     }
+
+    abstract public static function calculateOnChangeValue(float $count, PairInterface $pair): float;
+
+    abstract public static function calculateMinValue(PairInterface $pair);
+
+    abstract public static function calculateMaxValue(PairInterface $pair);
 }
