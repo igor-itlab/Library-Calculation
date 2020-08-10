@@ -2,7 +2,7 @@
   "name": "itlab-studio/calculation",
   "type": "library",
   "description": "Library for calculating the exchange rate for buying and selling currencies",
-  "version": "1.0.3",
+  "version": "1.4.0",
   "keywords": ["exchanger", "calculation", "standards", "course", "payin", "payout"],
   "homepage": "https://itlab-studio.com/",
   "license": "MIT",
