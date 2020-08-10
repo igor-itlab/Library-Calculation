@@ -4,11 +4,21 @@
 namespace Calculation;
 
 
-use Calculation\Entity\PairUnitInterface;
+use Calculation\Entity\PairInterface;
 
+
+/**
+ * Class Payin
+ * @package Calculation
+ */
 class Payin implements CalculationInterface
 {
-    public function calculateOnChangeValue(float $count, PairUnitInterface $payin, PairUnitInterface $payout): float
+    /**
+     * @param float $count
+     * @param PairInterface $pair
+     * @return float
+     */
+    static public function calculateOnChangeValue(float $count, PairInterface $pair): float
     {
 //        $course = Course::calculateCourse();
 //
@@ -18,12 +28,20 @@ class Payin implements CalculationInterface
 //        $countWithSystemCommission = $countReceivedByCourse * (1 - $exchangePercent / 100) - $exchangeConstant;
     }
 
-    public function calculateMinValue(PairUnitInterface $payin, PairUnitInterface $payout): float
+    /**
+     * @param PairInterface $pair
+     * @return float|void
+     */
+    static public function calculateMinValue(PairInterface $pair)
     {
         // TODO: Implement calculateMinValue() method.
     }
 
-    public function calculateMaxValue(PairUnitInterface $payin, PairUnitInterface $payout): float
+    /**
+     * @param PairInterface $pair
+     * @return float|void
+     */
+    static public function calculateMaxValue(PairInterface $pair)
     {
         // TODO: Implement calculateMaxValue() method.
     }

@@ -7,9 +7,13 @@ namespace Calculation;
 use Calculation\Entity\PairInterface;
 use Calculation\Entity\PairUnitInterface;
 
+/**
+ * Class Course
+ * @package Calculation
+ */
 class Course
 {
-    public static function calculateCourse(PairInterface $pair, PairUnitInterface $payin, PairUnitInterface $payout): float
+    public static function calculateCourse(PairInterface $pair): float
     {
         $payinCourse = $payout->getCurrency()->getCoursePayout()
             * ((100 + $pair->getPercent()) / 100)

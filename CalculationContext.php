@@ -4,6 +4,10 @@
 namespace Calculation;
 
 
+/**
+ * Class CalculationContext
+ * @package Calculation
+ */
 class CalculationContext
 {
     /**

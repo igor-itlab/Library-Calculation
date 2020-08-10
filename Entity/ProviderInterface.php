@@ -4,9 +4,10 @@
 namespace Calculation\Entity;
 
 
-
-use Doctrine\Common\Collections\Collection;
-
+/**
+ * Interface ProviderInterface
+ * @package Calculation\Entity
+ */
 interface ProviderInterface
 {
     /**
@@ -15,7 +16,22 @@ interface ProviderInterface
     public function getName(): string;
 
     /**
-     * @return ProviderFeeInterface
+     * @return array
      */
-    public function getProviderCommission(): ProviderFeeInterface;
+    public function getPercent(): array;
+
+    /**
+     * @return array
+     */
+    public function getConstant(): array;
+
+    /**
+     * @return array
+     */
+    public function getMinContribution(): array;
+
+    /**
+     * @return array
+     */
+    public function getMaxContribution(): array;
 }

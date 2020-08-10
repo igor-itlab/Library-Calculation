@@ -4,11 +4,29 @@
 namespace Calculation;
 
 
+use Calculation\Entity\PairInterface;
+
+
+/**
+ * Interface CalculationInterface
+ * @package Calculation
+ */
 interface CalculationInterface
 {
-    public function calculateOnChangeValue(float $count, ChangeConfigInterface $payin, ChangeConfigInterface $payout): float;
+    /**
+     * @param float $count
+     * @param PairInterface $pair
+     * @return float
+     */
+    public static function calculateOnChangeValue(float $count, PairInterface $pair): float;
 
-    public function calculateMinValue(ChangeConfigInterface $payin, ChangeConfigInterface $payout): array;
+    /**
+     * @param PairInterface $pair
+     */
+    public static function calculateMinValue(PairInterface $pair);
 
-    public function calculateMaxValue(ChangeConfigInterface $payin, ChangeConfigInterface $payout): array;
+    /**
+     * @param PairInterface $pair
+     */
+    public static function calculateMaxValue(PairInterface $pair);
 }
