@@ -4,6 +4,7 @@
 namespace Calculation;
 
 
+use Calculation\Entity\PaymentSystemInterface;
 use Calculation\Entity\ProviderFeeInterface;
 
 class ChangeConfig implements ChangeConfigInterface
@@ -18,12 +19,19 @@ class ChangeConfig implements ChangeConfigInterface
     protected float $course;
 
     /**
+     * @var PaymentSystemInterface
+     */
+    protected PaymentSystemInterface $paymentSystem;
+
+    /**
      * ChangeConfig constructor.
      * @param ProviderFeeInterface $fee
+     * @param PaymentSystemInterface $paymentSystem
      * @param float $course
      */
     public function __construct(
         ProviderFeeInterface $fee,
+        PaymentSystemInterface $paymentSystem,
         float $course
     )
     {
@@ -44,5 +52,10 @@ class ChangeConfig implements ChangeConfigInterface
     public function getCourse(): float
     {
         return $this->course;
+    }
+
+    public function getPaymentSystem(): PaymentSystemInterface
+    {
+        return $this->paymentSystem;
     }
 }
