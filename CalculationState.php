@@ -4,6 +4,10 @@
 namespace Calculation;
 
 
+/**
+ * Class CalculationState
+ * @package Calculation
+ */
 abstract class CalculationState
 {
     /**

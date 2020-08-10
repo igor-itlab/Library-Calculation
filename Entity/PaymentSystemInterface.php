@@ -4,6 +4,10 @@
 namespace Calculation\Entity;
 
 
+/**
+ * Interface PaymentSystemInterface
+ * @package Calculation\Entity
+ */
 interface PaymentSystemInterface
 {
     /**

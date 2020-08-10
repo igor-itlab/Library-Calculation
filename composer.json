@@ -14,8 +14,7 @@
   ],
   "require": {
     "php": ">=7.2.5",
-    "ext-json": "*",
-    "doctrine/collections": "^2.0@dev"
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": { "Calculation\\": "" }

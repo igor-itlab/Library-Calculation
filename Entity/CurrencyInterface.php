@@ -4,6 +4,10 @@
 namespace Calculation\Entity;
 
 
+/**
+ * Interface CurrencyInterface
+ * @package Calculation\Entity
+ */
 interface CurrencyInterface
 {
     /**

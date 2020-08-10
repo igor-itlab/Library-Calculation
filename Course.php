@@ -9,18 +9,15 @@ use Calculation\Entity\PairUnitInterface;
 
 class Course
 {
-    public static function calculateCourse(
-        PairInterface $pair,
-        ChangeConfigInterface $payin,
-        ChangeConfigInterface $payout
-    ): float {
-        $payinCourse = $payout->getCurrency()->getCoursePayout()
-            * ((100 + $pair->getPercent()) / 100)
-            * ((100 - $payin->getPaymentSystem()->getCostPrice()) / 100);
+    public static function calculateCourse(PairInterface $pair): float
+    {
+        $payinCourse = $pair->getPayoutObject()->getCurrency()->getCoursePayout()
+            * ((100 + $pair->getPercentPayin()) / 100)
+            * ((100 - $pair->getPayinObject()->getPaymentSystem()->getCostPrice()) / 100);
 
-        $payoutCourse = $payin->getCurrency()->getCoursePayout()
-            * ((100 - $pair->getPercent()) / 100)
-            * ((100 - $payout->getPaymentSystem()->getCostPrice()) / 100);
+        $payoutCourse = $pair->getPayinObject()->getCurrency()->getCoursePayout()
+            * ((100 - $pair->getPercentPayout()) / 100)
+            * ((100 - $pair->getPayoutObject()->getPaymentSystem()->getCostPrice()) / 100);
 
         return $payinCourse * $payoutCourse;
     }
