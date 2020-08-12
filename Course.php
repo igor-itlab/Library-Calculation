@@ -23,7 +23,7 @@ class Course
             * ((100 + $pair->getPercentPayin()) / 100)
             * ((100 - $pair->getPayinObject()->getPaymentSystem()->getCostPrice()) / 100);
 
-        $payoutCourse = $pair->getPayinObject()->getCurrency()->getCoursePayout()
+        $payoutCourse = $pair->getPayinObject()->getCurrency()->getCoursePayin()
             * ((100 - $pair->getPercentPayout()) / 100)
             * ((100 - $pair->getPayoutObject()->getPaymentSystem()->getCostPrice()) / 100);
 
