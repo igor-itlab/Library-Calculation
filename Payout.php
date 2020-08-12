@@ -6,6 +6,7 @@ namespace Calculation;
 
 use Calculation\Entity\PairInterface;
 
+
 /**
  * Class Payout
  * @package Calculation

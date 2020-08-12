@@ -5,10 +5,18 @@ namespace Calculation;
 
 
 use Calculation\Entity\PairInterface;
-use Calculation\Entity\PairUnitInterface;
 
+
+/**
+ * Class Course
+ * @package Calculation
+ */
 class Course
 {
+    /**
+     * @param PairInterface $pair
+     * @return float
+     */
     public static function calculateCourse(PairInterface $pair): float
     {
         $payinCourse = $pair->getPayoutObject()->getCurrency()->getCoursePayout()

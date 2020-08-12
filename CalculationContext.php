@@ -17,11 +17,18 @@ class CalculationContext
      */
     private CalculationState $state;
 
+    /**
+     * CalculationContext constructor.
+     * @param CalculationState $state
+     */
     public function __construct(CalculationState $state)
     {
         $this->setState($state);
     }
 
+    /**
+     * @param CalculationState $state
+     */
     public function setState(CalculationState $state): void
     {
         $this->state = $state;
