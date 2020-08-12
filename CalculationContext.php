@@ -31,19 +31,28 @@ class CalculationContext
     /**
      * @param float $count
      * @param PairInterface $pair
+     * @return float
      */
-    public function calculateOnChangeValue(float $count, PairInterface $pair): void
+    public function calculateOnChangeValue(float $count, PairInterface $pair): float
     {
-        $this->state::calculateOnChangeValue($count, $pair);
+        return $this->state::calculateOnChangeValue($count, $pair);
     }
 
-    public function calculateMinContribution(PairInterface $pair): void
+    /**
+     * @param PairInterface $pair
+     * @return mixed
+     */
+    public function calculateMinContribution(PairInterface $pair)
     {
-        $this->state::calculateMinValue($pair);
+        return $this->state::calculateMinValue($pair);
     }
 
-    public function calculateMaxContribution(PairInterface $pair): void
+    /**
+     * @param PairInterface $pair
+     * @return mixed
+     */
+    public function calculateMaxContribution(PairInterface $pair)
     {
-        $this->state::calculateMaxValue($pair);
+        return $this->state::calculateMaxValue($pair);
     }
 }
