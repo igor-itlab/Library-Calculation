@@ -47,19 +47,17 @@ class CalculationContext
 
     /**
      * @param PairInterface $pair
-     * @return mixed
      */
-    public function calculateMinContribution(PairInterface $pair)
+    public function calculateMinContribution(PairInterface $pair): void
     {
-        return $this->state::calculateMinValue($pair);
+        $this->state::calculateMinValue($pair);
     }
 
     /**
      * @param PairInterface $pair
-     * @return mixed
      */
-    public function calculateMaxContribution(PairInterface $pair)
+    public function calculateMaxContribution(PairInterface $pair): void
     {
-        return $this->state::calculateMaxValue($pair);
+        $this->state::calculateMaxValue($pair);
     }
 }

@@ -23,10 +23,10 @@ interface CalculationInterface
     /**
      * @param PairInterface $pair
      */
-    public static function calculateMinValue(PairInterface $pair);
+    public static function calculateMinValue(PairInterface $pair): void;
 
     /**
      * @param PairInterface $pair
      */
-    public static function calculateMaxValue(PairInterface $pair);
+    public static function calculateMaxValue(PairInterface $pair): void;
 }

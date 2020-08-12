@@ -36,11 +36,11 @@ abstract class CalculationState implements CalculationInterface
      * @param PairInterface $pair
      * @return mixed
      */
-    abstract public static function calculateMinValue(PairInterface $pair);
+    abstract public static function calculateMinValue(PairInterface $pair): void;
 
     /**
      * @param PairInterface $pair
      * @return mixed
      */
-    abstract public static function calculateMaxValue(PairInterface $pair);
+    abstract public static function calculateMaxValue(PairInterface $pair): void;
 }

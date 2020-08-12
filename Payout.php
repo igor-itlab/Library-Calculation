@@ -23,48 +23,56 @@ class Payout extends CalculationState
         $payinValue = ($count + $pair->getPayoutObject()->getProvider()->getConstant()['outFee']) /
             (1 - $pair->getPayoutObject()->getProvider()->getPercent()['outFee'] / 100);
         $payoutValue = Course::calculateCourse($pair) * $payinValue;
-
-        return ($payoutValue + $pair->getPayinObject()->getProvider()->getConstant()['inFee'])
+        $onChangeValue = ($payoutValue + $pair->getPayinObject()->getProvider()->getConstant()['inFee'])
             / (1 - $pair->getPayinObject()->getProvider()->getPercent()['inFee']);
+        $pair->getPayoutObject()->setOnChangeValue($onChangeValue);
+
+        return $onChangeValue;
     }
 
     /**
      * @param PairInterface $pair
-     * @return false|string
-     * @throws \JsonException
      */
-    public static function calculateMinValue(PairInterface $pair)
+    public static function calculateMinValue(PairInterface $pair): void
     {
-        $onChangeValue = Payin::calculateOnChangeValue($pair->getPayinObject()->getProvider()->getMinContribution()['outFee'], $pair);
+        $onChangeValue = Payin::calculateOnChangeValue(
+            $pair->getPayinObject()->getProvider()->getMinContribution()['outFee'],
+            $pair
+        );
 
         if ($pair->getPayoutObject()->getProvider()->getMinContribution()['outFee'] < $onChangeValue) {
-            $minPayin = ceil($onChangeValue);
-            $minPayout = self::calculateOnChangeValue(ceil($onChangeValue), $pair);
+            $pair->getPayinObject()->setMinExchangeLimit(ceil($onChangeValue));
+            $pair->getPayoutObject()->setMinExchangeLimit(self::calculateOnChangeValue(ceil($onChangeValue), $pair));
         } else {
-            $minPayin = ceil($pair->getPayoutObject()->getProvider()->getMinContribution()['outFee']);
-            $minPayout = self::calculateOnChangeValue(ceil($pair->getPayoutObject()->getProvider()->getMinContribution()['outFee']), $pair);
+            $pair->getPayinObject()->setMinExchangeLimit(
+                ceil($pair->getPayoutObject()->getProvider()->getMinContribution()['outFee'])
+            );
+            $pair->getPayoutObject()->setMinExchangeLimit(
+                self::calculateOnChangeValue(
+                    ceil($pair->getPayoutObject()->getProvider()->getMinContribution()['outFee']),
+                    $pair
+                )
+            );
         }
-
-        return json_encode(['minPayin' => $minPayin, 'minPayout' => $minPayout], JSON_THROW_ON_ERROR);
     }
 
     /**
      * @param PairInterface $pair
-     * @return false|string
-     * @throws \JsonException
      */
-    public static function calculateMaxValue(PairInterface $pair)
+    public static function calculateMaxValue(PairInterface $pair): void
     {
-        $onChangeValue = Payin::calculateOnChangeValue($pair->getPayinObject()->getProvider()->getMaxContribution()['outFee'], $pair);
+        $onChangeValue = Payin::calculateOnChangeValue(
+            $pair->getPayinObject()->getProvider()->getMaxContribution()['outFee'],
+            $pair
+        );
 
         if ($pair->getPayoutObject()->getProvider()->getMaxContribution()['outFee'] < $onChangeValue) {
-            $maxPayin = ceil($pair->getPayoutObject()->getProvider()->getMaxContribution()['outFee']);
-            $maxPayout = self::calculateOnChangeValue(ceil($maxPayin), $pair);
+            $payin = ceil($pair->getPayoutObject()->getProvider()->getMaxContribution()['outFee']);
+            $pair->getPayinObject()->setMaxExchangeLimit($payin);
+            $pair->getPayoutObject()->setMaxExchangeLimit(self::calculateOnChangeValue(ceil($payin), $pair));
         } else {
-            $maxPayin = ceil($onChangeValue);
-            $maxPayout = self::calculateOnChangeValue(ceil($onChangeValue), $pair);
+            $pair->getPayinObject()->setMaxExchangeLimit(ceil($onChangeValue));
+            $pair->getPayoutObject()->setMaxExchangeLimit(self::calculateOnChangeValue(ceil($onChangeValue), $pair));
         }
-
-        return json_encode(['maxPayin' => $maxPayin, 'maxPayout' => $maxPayout], JSON_THROW_ON_ERROR);
     }
 }
