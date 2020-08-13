@@ -22,9 +22,12 @@ class Payin extends CalculationState
     {
         $payoutWithCommission = $count - ($count * $pair->getPayinObject()->getProvider()->getPercent()['inFee'])
             / 100 - $pair->getPayinObject()->getProvider()->getConstant()['inFee'];
+
         $payinReceivedByCourse = $payoutWithCommission / Course::calculateCourse($pair);
+
         $onChangeValue = $payinReceivedByCourse * (1 - $pair->getPayoutObject()->getProvider()->getPercent()['outFee'] / 100)
             - $pair->getPayoutObject()->getProvider()->getConstant()['outFee'];
+
         $pair->getPayinObject()->setOnChangeValue($onChangeValue);
 
         return $onChangeValue;
@@ -44,9 +47,7 @@ class Payin extends CalculationState
             $pair->getPayinObject()->setMinExchangeLimit(ceil($onChangeValue));
             $pair->getPayoutObject()->setMinExchangeLimit(self::calculateOnChangeValue(ceil($onChangeValue), $pair));
         } else {
-            $pair->getPayinObject()->setMinExchangeLimit(
-                ceil($pair->getPayinObject()->getProvider()->getMinContribution()['inFee'])
-            );
+            $pair->getPayinObject()->setMinExchangeLimit(ceil($pair->getPayinObject()->getProvider()->getMinContribution()['inFee']));
             $pair->getPayoutObject()->setMinExchangeLimit(
                 self::calculateOnChangeValue(
                     ceil($pair->getPayinObject()->getProvider()->getMinContribution()['inFee']),
