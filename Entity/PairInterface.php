@@ -29,4 +29,9 @@ interface PairInterface
      * @return PairUnitInterface
      */
     public function getPayoutObject(): PairUnitInterface;
+
+    /**
+     * @return string
+     */
+    public function getState(): string;
 }

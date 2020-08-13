@@ -5,6 +5,7 @@ namespace Calculation;
 
 
 use Calculation\Entity\PairInterface;
+use Calculation\Service\Converter;
 
 /**
  * Class CalculationContext
@@ -19,19 +20,19 @@ class CalculationContext
 
     /**
      * CalculationContext constructor.
-     * @param CalculationState $state
+     * @param PairInterface $pair
      */
-    public function __construct(CalculationState $state)
+    public function __construct(PairInterface $pair)
     {
-        $this->setState($state);
+        $this->setState($pair);
     }
 
     /**
-     * @param CalculationState $state
+     * @param PairInterface $pair
      */
-    public function setState(CalculationState $state): void
+    public function setState(PairInterface $pair): void
     {
-        $this->state = $state;
+        $this->state = Converter::toObject($pair->getState());
         $this->state->setContext($this);
     }
 
