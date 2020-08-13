@@ -6,6 +6,8 @@ namespace Calculation\Service;
 
 use Calculation\Payin;
 use Calculation\Payout;
+use ReflectionClass;
+use ReflectionException;
 use stdClass;
 
 class Converter
@@ -18,6 +20,16 @@ class Converter
     {
         $type = ucfirst(strtolower($type));
         return self::getType()->$type;
+    }
+
+    /**
+     * @param Payin|Payout $object
+     * @return string
+     * @throws ReflectionException
+     */
+    public function toString($object): string
+    {
+        return strtolower((new ReflectionClass($object))->getShortName());
     }
 
     /**
