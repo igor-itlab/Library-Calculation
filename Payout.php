@@ -22,12 +22,9 @@ class Payout extends CalculationState
     {
         $payinWithCommission = ($count + $pair->getPayoutObject()->getProvider()->getConstant()['outFee']) /
             (1 - $pair->getPayoutObject()->getProvider()->getPercent()['outFee'] / 100);
-
         $payoutReceivedByCourse = Course::calculateCourse($pair) * $payinWithCommission;
-
         $onChangeValue = ($payoutReceivedByCourse + $pair->getPayinObject()->getProvider()->getConstant()['inFee'])
             / (1 - $pair->getPayinObject()->getProvider()->getPercent()['inFee']);
-
         $pair->getPayoutObject()->setOnChangeValue($onChangeValue);
 
         return $onChangeValue;
@@ -38,22 +35,17 @@ class Payout extends CalculationState
      */
     public static function calculateMinValue(PairInterface $pair): void
     {
-        $onChangeValue = Payin::calculateOnChangeValue(
-            $pair->getPayinObject()->getProvider()->getMinContribution()['outFee'],
-            $pair
-        );
+        $payinMin = $pair->getPayinObject()->getProvider()->getMinContribution()['outFee'];
+        $payoutMin = $pair->getPayoutObject()->getProvider()->getMinContribution()['outFee'];
 
-        if ($pair->getPayoutObject()->getProvider()->getMinContribution()['outFee'] < $onChangeValue) {
+        $onChangeValue = Payin::calculateOnChangeValue($payinMin, $pair);
+
+        if ($payoutMin < $onChangeValue) {
             $pair->getPayinObject()->setMinExchangeLimit(ceil($onChangeValue));
             $pair->getPayoutObject()->setMinExchangeLimit(self::calculateOnChangeValue(ceil($onChangeValue), $pair));
         } else {
-            $pair->getPayinObject()->setMinExchangeLimit(ceil($pair->getPayoutObject()->getProvider()->getMinContribution()['outFee']));
-            $pair->getPayoutObject()->setMinExchangeLimit(
-                self::calculateOnChangeValue(
-                    ceil($pair->getPayoutObject()->getProvider()->getMinContribution()['outFee']),
-                    $pair
-                )
-            );
+            $pair->getPayinObject()->setMinExchangeLimit(ceil($payoutMin));
+            $pair->getPayoutObject()->setMinExchangeLimit(self::calculateOnChangeValue(ceil($payoutMin), $pair));
         }
     }
 
@@ -62,13 +54,13 @@ class Payout extends CalculationState
      */
     public static function calculateMaxValue(PairInterface $pair): void
     {
-        $onChangeValue = Payin::calculateOnChangeValue(
-            $pair->getPayinObject()->getProvider()->getMaxContribution()['outFee'],
-            $pair
-        );
+        $payinMax = $pair->getPayinObject()->getProvider()->getMaxContribution()['outFee'];
+        $payoutMax = $pair->getPayoutObject()->getProvider()->getMaxContribution()['outFee'];
 
-        if ($pair->getPayoutObject()->getProvider()->getMaxContribution()['outFee'] < $onChangeValue) {
-            $payin = ceil($pair->getPayoutObject()->getProvider()->getMaxContribution()['outFee']);
+        $onChangeValue = Payin::calculateOnChangeValue($payinMax, $pair);
+
+        if ($payoutMax < $onChangeValue) {
+            $payin = ceil($payoutMax);
             $pair->getPayinObject()->setMaxExchangeLimit($payin);
             $pair->getPayoutObject()->setMaxExchangeLimit(self::calculateOnChangeValue(ceil($payin), $pair));
         } else {
