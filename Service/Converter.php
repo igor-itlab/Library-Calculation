@@ -27,7 +27,7 @@ class Converter
      * @return string
      * @throws ReflectionException
      */
-    public function toString($object): string
+    public static function toString($object): string
     {
         return strtolower((new ReflectionClass($object))->getShortName());
     }
