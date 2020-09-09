@@ -27,7 +27,7 @@
     }
   ],
   "require": {
-    "php": "*",
+    "php": ">=7.2.5",
     "ext-json": "*"
   },
   "autoload": {
