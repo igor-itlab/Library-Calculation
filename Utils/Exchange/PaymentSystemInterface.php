@@ -1,12 +1,10 @@
 <?php
 
-
-namespace Calculation\Entity;
-
+namespace Calculation\Utlis\Exchange;
 
 /**
  * Interface PaymentSystemInterface
- * @package Calculation\Entity
+ * @package Calculation\Utlis\Exchange
  */
 interface PaymentSystemInterface
 {
@@ -20,5 +18,13 @@ interface PaymentSystemInterface
      */
     public function getTag(): string;
 
+    /**
+     * @return string
+     */
+    public function getSubName(): string;
+
+    /**
+     * @return float
+     */
     public function getCostPrice(): float;
 }
