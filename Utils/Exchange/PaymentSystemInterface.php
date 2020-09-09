@@ -26,5 +26,5 @@ interface PaymentSystemInterface
     /**
      * @return float
      */
-    public function getCostPrice(): float;
+    public function getPrice(): float;
 }
