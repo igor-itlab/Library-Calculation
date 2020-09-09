@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Calculation;
+namespace Calculation\Service\States;
 
 
 use Calculation\Utils\Calculation\CalculationInterface;

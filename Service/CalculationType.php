@@ -2,8 +2,9 @@
 
 namespace Calculation\Service;
 
-use Calculation\Payment;
-use Calculation\Payout;
+
+use Calculation\Service\States\Payment;
+use Calculation\Service\States\Payout;
 use stdClass;
 
 /**
