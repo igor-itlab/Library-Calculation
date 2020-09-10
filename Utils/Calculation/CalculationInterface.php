@@ -11,11 +11,10 @@ use Calculation\Utils\Exchange\PairInterface;
 interface CalculationInterface
 {
     /**
-     * @param float $amount
      * @param PairInterface $pair
-     * @return float
+     * @param float|null $amount
      */
-    public static function calculateAmount(float $amount, PairInterface $pair): float;
+    public static function calculateAmount(PairInterface $pair, float $amount = null): void;
 
     /**
      * @param PairInterface $pair

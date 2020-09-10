@@ -14,7 +14,6 @@ use Calculation\Utils\Exchange\PairInterface;
  */
 class Payment implements CalculationInterface
 {
-
     /**
      * @param PairInterface $pair
      */
@@ -23,26 +22,30 @@ class Payment implements CalculationInterface
         $paymentMin = $pair->getInObject()->getService()->inFee()['limits']['min'];
         $payoutMin = $pair->getOutObject()->getService()->inFee()['limits']['min'];
 
-        $tmp = self::calculateAmount($payoutMin, $pair);
+        self::calculateAmount($pair, $payoutMin);
 
-        if ($paymentMin < $tmp) {
-            $pair->getInObject()->setMin(ceil($tmp));
-            $tmp2 = self::calculateAmount(ceil($tmp), $pair);
-            $pair->getOutObject()->setMin($tmp2);
+        if ($paymentMin < $pair->getOutObject()->getAmount()) {
+            $pair->getInObject()->setMin(ceil($pair->getOutObject()->getAmount()));
+            self::calculateAmount($pair, ceil($pair->getOutObject()->getAmount()));
+            $pair->getOutObject()->setMin($pair->getOutObject()->getAmount());
         } else {
             $pair->getInObject()->setMin(ceil($paymentMin));
-            $tmp2 = self::calculateAmount(ceil($paymentMin), $pair);
-            $pair->getOutObject()->setMin($tmp2);
+            self::calculateAmount($pair, ceil($paymentMin));
+            $pair->getOutObject()->setMin($pair->getOutObject()->getAmount());
         }
     }
 
     /**
-     * @param float $amount
      * @param PairInterface $pair
-     * @return float
+     * @param float|null $amount
      */
-    public static function calculateAmount(float $amount, PairInterface $pair): float
+    public static function calculateAmount(PairInterface $pair, float $amount = null): void
     {
+        if (!$amount) {
+            self::calculateMin($pair);
+            $amount = $pair->getInObject()->getMin();
+        }
+
         $course = Course::calculate($pair);
 
         $paymentPercent = $pair->getInObject()->inFee()['percent'];
@@ -54,7 +57,7 @@ class Payment implements CalculationInterface
         $currencyTmp = $amount - ($amount * $paymentPercent) / 100 - $paymentConstant;
         $cryptocurrencyTmp = $currencyTmp / $course;
 
-        return $cryptocurrencyTmp * (1 - $payoutPercent / 100) - $payoutConstant;
+        $pair->getOutObject()->setAmount($cryptocurrencyTmp * (1 - $payoutPercent / 100) - $payoutConstant);
     }
 
     /**
@@ -65,16 +68,16 @@ class Payment implements CalculationInterface
         $paymentMin = $pair->getInObject()->getService()->inFee()['limits']['max'];
         $payoutMin = $pair->getOutObject()->getService()->inFee()['limits']['max'];
 
-        $tmp = self::calculateAmount($payoutMin, $pair);
+        self::calculateAmount($pair, $payoutMin);
 
-        if ($paymentMin < $tmp) {
+        if ($paymentMin < $pair->getOutObject()->getAmount()) {
             $pair->getInObject()->setMax(ceil($paymentMin));
-            $tmp2 = self::calculateAmount(ceil($paymentMin), $pair);
-            $pair->getOutObject()->setMax($tmp2);
+            self::calculateAmount($pair, ceil($paymentMin));
+            $pair->getOutObject()->setMax($pair->getOutObject()->getAmount());
         } else {
-            $pair->getInObject()->setMax(ceil($tmp));
-            $tmp2 = self::calculateAmount(ceil($tmp), $pair);
-            $pair->getOutObject()->setMax($tmp2);
+            $pair->getInObject()->setMax(ceil($pair->getOutObject()->getAmount()));
+            self::calculateAmount($pair, ceil($pair->getOutObject()->getAmount()));
+            $pair->getOutObject()->setMax($pair->getOutObject()->getAmount());
         }
     }
 }
