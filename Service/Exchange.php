@@ -17,7 +17,7 @@ class Exchange
      */
     public static function calculation(string $type): CalculationInterface
     {
-        $type = ucfirst(strtolower($type));
+        $type = strtolower($type);
 
         return CalculationType::getType()->$type;
     }
