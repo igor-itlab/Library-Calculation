@@ -38,12 +38,12 @@ interface PairUnitInterface
     /**
      * @return array
      */
-    public function inFee(): array;
+    public function getInFee(): array;
 
     /**
      * @return array
      */
-    public function outFee(): array;
+    public function getOutFee(): array;
 
     /**
      * @return float
