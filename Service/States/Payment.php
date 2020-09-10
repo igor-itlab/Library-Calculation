@@ -44,7 +44,7 @@ class Payment implements CalculationInterface, CourseInterface
     {
         $course = $pair->getOutObject()->getCurrency()->getOutRate()
             * ((100 + $pair->getInPercent()) / 100)
-            * ((100 - $pair->getInObject()->getPaymentSystem()->getCostPrice()) / 100);
+            * ((100 - $pair->getInObject()->getPaymentSystem()->getPrice()) / 100);
 
         return $pair->getInObject()->getCurrency()->getInRate() * $course;
     }

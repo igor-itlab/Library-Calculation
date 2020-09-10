@@ -43,7 +43,7 @@ class Payout implements CalculationInterface, CourseInterface
     {
         $course = $pair->getInObject()->getCurrency()->getInRate()
             * ((100 + $pair->getOutPercent()) / 100)
-            * ((100 - $pair->getOutObject()->getPaymentSystem()->getCostPrice()) / 100);
+            * ((100 - $pair->getOutObject()->getPaymentSystem()->getPrice()) / 100);
 
         return $pair->getOutObject()->getCurrency()->getOutRate() * $course;
     }
