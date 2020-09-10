@@ -1,10 +1,10 @@
 <?php
 
-namespace Calculation\Utlis\Exchange;
+namespace Calculation\Utils\Exchange;
 
 /**
  * Interface CurrencyInterface
- * @package Calculation\Utlis\Exchange
+ * @package Calculation\Utils\Exchange
  */
 interface CurrencyInterface
 {
