@@ -40,5 +40,5 @@
       "require": "^3.4 || ^4.0 || ^5.0"
     }
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "stable"
 }
