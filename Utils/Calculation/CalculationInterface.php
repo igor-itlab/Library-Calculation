@@ -2,7 +2,7 @@
 
 namespace Calculation\Utils\Calculation;
 
-use Calculation\Utlis\Exchange\PairInterface;
+use Calculation\Utils\Exchange\PairInterface;
 
 /**
  * Interface CalculationInterface

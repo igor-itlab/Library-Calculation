@@ -4,50 +4,16 @@
 namespace Calculation\Service\States;
 
 
+use Calculation\Service\Course;
 use Calculation\Utils\Calculation\CalculationInterface;
-use Calculation\Utils\Calculation\CourseInterface;
-use Calculation\Utlis\Exchange\PairInterface;
+use Calculation\Utils\Exchange\PairInterface;
 
 /**
  * Class Payment
  * @package Calculation
  */
-class Payment implements CalculationInterface, CourseInterface
+class Payment implements CalculationInterface
 {
-
-    /**
-     * @param float $amount
-     * @param PairInterface $pair
-     * @return float
-     */
-    public static function calculateAmount(float $amount, PairInterface $pair): float
-    {
-        $course = self::calculateCourse($pair);
-
-        $paymentPercent = $pair->getInObject()->inFee()['percent'];
-        $paymentConstant = $pair->getInObject()->inFee()['constant'];
-
-        $payoutPercent = $pair->getOutObject()->inFee()['percent'];
-        $payoutConstant = $pair->getOutObject()->inFee()['constant'];
-
-        $currencyTmp = $amount - ($amount * $paymentPercent) / $paymentConstant;
-        $cryptocurrencyTmp = $currencyTmp / $course;
-
-        return $cryptocurrencyTmp * (1 - $payoutPercent / 100) - $payoutConstant;
-    }
-
-    /**
-     * @param PairInterface $pair
-     * @return float
-     */
-    public static function calculateCourse(PairInterface $pair): float
-    {
-        $course = $pair->getOutObject()->getCurrency()->getOutRate()
-            * ((100 + $pair->getInPercent()) / 100)
-            * ((100 - $pair->getInObject()->getPaymentSystem()->getPrice()) / 100);
-
-        return $pair->getInObject()->getCurrency()->getInRate() * $course;
-    }
 
     /**
      * @param PairInterface $pair
@@ -68,6 +34,27 @@ class Payment implements CalculationInterface, CourseInterface
             $tmp2 = self::calculateAmount(ceil($paymentMin), $pair);
             $pair->getOutObject()->setMin($tmp2);
         }
+    }
+
+    /**
+     * @param float $amount
+     * @param PairInterface $pair
+     * @return float
+     */
+    public static function calculateAmount(float $amount, PairInterface $pair): float
+    {
+        $course = Course::calculate($pair);
+
+        $paymentPercent = $pair->getInObject()->inFee()['percent'];
+        $paymentConstant = $pair->getInObject()->inFee()['constant'];
+
+        $payoutPercent = $pair->getOutObject()->outFee()['percent'];
+        $payoutConstant = $pair->getOutObject()->outFee()['constant'];
+
+        $currencyTmp = $amount - ($amount * $paymentPercent) / 100 - $paymentConstant;
+        $cryptocurrencyTmp = $currencyTmp / $course;
+
+        return $cryptocurrencyTmp * (1 - $payoutPercent / 100) - $payoutConstant;
     }
 
     /**

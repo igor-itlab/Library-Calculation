@@ -2,7 +2,7 @@
 
 namespace Calculation\Utils\Calculation;
 
-use Calculation\Utlis\Exchange\PairInterface;
+use Calculation\Utils\Exchange\PairInterface;
 
 /**
  * Interface CourseInterface
@@ -14,6 +14,6 @@ interface CourseInterface
      * @param PairInterface $pair
      * @return float
      */
-    public static function calculateCourse(PairInterface $pair): float;
+    public static function calculate(PairInterface $pair): float;
 
 }
