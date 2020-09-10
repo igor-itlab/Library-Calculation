@@ -19,12 +19,12 @@ interface PairInterface
     public function getOutPercent(): float;
 
     /**
-     * @return PairComponentInterface
+     * @return PairUnitInterface
      */
-    public function getInObject(): PairComponentInterface;
+    public function getInObject(): PairUnitInterface;
 
     /**
-     * @return PairComponentInterface
+     * @return PairUnitInterface
      */
-    public function getOutObject(): PairComponentInterface;
+    public function getOutObject(): PairUnitInterface;
 }

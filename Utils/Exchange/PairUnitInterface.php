@@ -4,10 +4,10 @@ namespace Calculation\Utils\Exchange;
 
 
 /**
- * Interface PairComponentInterface
+ * Interface PairUnitInterface
  * @package Calculation\Utils\Exchange
  */
-interface PairComponentInterface
+interface PairUnitInterface
 {
     /**
      * @return CurrencyInterface
@@ -31,9 +31,9 @@ interface PairComponentInterface
 
     /**
      * @param float $amount
-     * @return PairComponentInterface
+     * @return PairUnitInterface
      */
-    public function setAmount(float $amount): PairComponentInterface;
+    public function setAmount(float $amount): PairUnitInterface;
 
     /**
      * @return array
@@ -52,9 +52,9 @@ interface PairComponentInterface
 
     /**
      * @param float $min
-     * @return PairComponentInterface
+     * @return PairUnitInterface
      */
-    public function setMin(float $min): PairComponentInterface;
+    public function setMin(float $min): PairUnitInterface;
 
     /**
      * @return float
@@ -63,7 +63,7 @@ interface PairComponentInterface
 
     /**
      * @param float $max
-     * @return PairComponentInterface
+     * @return PairUnitInterface
      */
-    public function setMax(float $max): PairComponentInterface;
+    public function setMax(float $max): PairUnitInterface;
 }
