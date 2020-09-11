@@ -19,8 +19,8 @@ class Payout implements CalculationInterface
      */
     public static function calculateMin(PairInterface $pair): void
     {
-        $paymentMin = $pair->getOutObject()->getService()->getInFee()['limits']['min'];
-        $payoutMin = $pair->getInObject()->getService()->getOutFee()['limits']['min'];
+        $paymentMin = $pair->getOutObject()->getOutFee()['limits']['min'];
+        $payoutMin = $pair->getInObject()->getInFee()['limits']['min'];
 
         self::calculateAmount($pair, $payoutMin);
 
@@ -68,8 +68,8 @@ class Payout implements CalculationInterface
      */
     public static function calculateMax(PairInterface $pair): void
     {
-        $paymentMin = $pair->getOutObject()->getService()->getInFee()['limits']['max'];
-        $payoutMin = $pair->getInObject()->getService()->getOutFee()['limits']['max'];
+        $paymentMin = $pair->getOutObject()->getOutFee()['limits']['max'];
+        $payoutMin = $pair->getInObject()->getInFee()['limits']['max'];
 
         self::calculateAmount($pair, $payoutMin);
 
