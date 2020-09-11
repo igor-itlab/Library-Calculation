@@ -41,7 +41,7 @@ class Payment implements CalculationInterface
      */
     public static function calculateAmount(PairInterface $pair, float $amount = null): void
     {
-        if (!$amount) {
+        if ($amount === null) {
             self::calculateMin($pair);
             $amount = $pair->getInObject()->getMin();
         }
