@@ -42,6 +42,13 @@ class Payout implements CalculationInterface
      */
     public static function calculateAmount(PairInterface $pair, float $amount = null): void
     {
+        if (!$amount) {
+            self::calculateMin($pair);
+            $amount = $pair->getOutObject()->getMin();
+        }
+
+        $pair->getOutObject()->setAmount($amount);
+
         $course = Course::calculate($pair);
 
         $paymentPercent = $pair->getInObject()->getInFee()['percent'];

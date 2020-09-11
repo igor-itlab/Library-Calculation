@@ -46,6 +46,8 @@ class Payment implements CalculationInterface
             $amount = $pair->getInObject()->getMin();
         }
 
+        $pair->getInObject()->setAmount($amount);
+
         $course = Course::calculate($pair);
 
         $paymentPercent = $pair->getInObject()->getInFee()['percent'];
