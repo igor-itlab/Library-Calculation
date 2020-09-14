@@ -19,8 +19,8 @@ class Payment implements CalculationInterface
      */
     public static function calculateMin(PairInterface $pair): void
     {
-        $paymentMin = $pair->getInObject()->getInFee()['limits']['min'];
-        $payoutMin = $pair->getOutObject()->getOutFee()['limits']['min'];
+        $paymentMin = $pair->getInObject()->getFee()['limits']['min'];
+        $payoutMin = $pair->getOutObject()->getFee()['limits']['min'];
 
         self::calculateAmount($pair, $payoutMin);
 
@@ -50,11 +50,11 @@ class Payment implements CalculationInterface
 
         $course = Course::calculate($pair);
 
-        $paymentPercent = $pair->getInObject()->getInFee()['percent'];
-        $paymentConstant = $pair->getInObject()->getInFee()['constant'];
+        $paymentPercent = $pair->getInObject()->getFee()['percent'];
+        $paymentConstant = $pair->getInObject()->getFee()['constant'];
 
-        $payoutPercent = $pair->getOutObject()->getOutFee()['percent'];
-        $payoutConstant = $pair->getOutObject()->getOutFee()['constant'];
+        $payoutPercent = $pair->getOutObject()->getFee()['percent'];
+        $payoutConstant = $pair->getOutObject()->getFee()['constant'];
 
         $currencyTmp = $amount - ($amount * $paymentPercent) / 100 - $paymentConstant;
         $cryptocurrencyTmp = $currencyTmp / $course;
@@ -67,8 +67,8 @@ class Payment implements CalculationInterface
      */
     public static function calculateMax(PairInterface $pair): void
     {
-        $paymentMin = $pair->getInObject()->getInFee()['limits']['max'];
-        $payoutMin = $pair->getOutObject()->getOutFee()['limits']['max'];
+        $paymentMin = $pair->getInObject()->getFee()['limits']['max'];
+        $payoutMin = $pair->getOutObject()->getFee()['limits']['max'];
 
         self::calculateAmount($pair, $payoutMin);
 
