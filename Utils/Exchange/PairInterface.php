@@ -11,12 +11,7 @@ interface PairInterface
     /**
      * @return float
      */
-    public function getInPercent(): float;
-
-    /**
-     * @return float
-     */
-    public function getOutPercent(): float;
+    public function getPercent(): float;
 
     /**
      * @return PairUnitInterface
