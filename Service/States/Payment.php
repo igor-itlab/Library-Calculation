@@ -20,19 +20,19 @@ class Payment implements CalculationInterface, RatesInterface
      */
     public static function calculateMin(PairInterface $pair): void
     {
-        $paymentMin = $pair->getInObject()->getPrimeFee()->getMin() + $pair->getInObject()->getMarkupFee()->getMin();
-        $payoutMin = $pair->getOutObject()->getPrimeFee()->getMin() + $pair->getOutObject()->getMarkupFee()->getMin();
+        $paymentMin = $pair->getPayment()->getPrimeFee()->getMin() + $pair->getPayment()->getMarkupFee()->getMin();
+        $payoutMin = $pair->getPayout()->getPrimeFee()->getMin() + $pair->getPayout()->getMarkupFee()->getMin();
 
         self::calculateAmount($pair, $payoutMin);
 
-        if ($paymentMin < $pair->getOutObject()->getAmount()) {
-            $pair->getInObject()->setMin(ceil($pair->getOutObject()->getAmount()));
-            self::calculateAmount($pair, ceil($pair->getOutObject()->getAmount()));
-            $pair->getOutObject()->setMin($pair->getOutObject()->getAmount());
+        if ($paymentMin < $pair->getPayout()->getAmount()) {
+            $pair->getPayment()->setMin(ceil($pair->getPayout()->getAmount()));
+            self::calculateAmount($pair, ceil($pair->getPayout()->getAmount()));
+            $pair->getPayout()->setMin($pair->getPayout()->getAmount());
         } else {
-            $pair->getInObject()->setMin(ceil($paymentMin));
+            $pair->getPayment()->setMin(ceil($paymentMin));
             self::calculateAmount($pair, ceil($paymentMin));
-            $pair->getOutObject()->setMin($pair->getOutObject()->getAmount());
+            $pair->getPayout()->setMin($pair->getPayout()->getAmount());
         }
     }
 
@@ -44,27 +44,27 @@ class Payment implements CalculationInterface, RatesInterface
     {
         if ($amount === null) {
             self::calculateMin($pair);
-            $amount = $pair->getInObject()->getPrimeFee()->getMin() + $pair->getInObject()->getMarkupFee()->getMin();
+            $amount = $pair->getPayment()->getPrimeFee()->getMin() + $pair->getPayment()->getMarkupFee()->getMin();
         }
 
-        $pair->getInObject()->setAmount($amount);
+        $pair->getPayment()->setAmount($amount);
 
         $course = Course::calculate($pair);
 
-        $paymentPercent = $pair->getInObject()->getPrimeFee()->getPercent() + $pair->getInObject()->getMarkupFee(
+        $paymentPercent = $pair->getPayment()->getPrimeFee()->getPercent() + $pair->getPayment()->getMarkupFee(
             )->getPercent();
-        $paymentConstant = $pair->getInObject()->getPrimeFee()->getConstant() + $pair->getInObject()->getMarkupFee(
+        $paymentConstant = $pair->getPayment()->getPrimeFee()->getConstant() + $pair->getPayment()->getMarkupFee(
             )->getConstant();
 
-        $payoutPercent = $pair->getOutObject()->getPrimeFee()->getPercent() + $pair->getOutObject()->getMarkupFee(
+        $payoutPercent = $pair->getPayout()->getPrimeFee()->getPercent() + $pair->getPayout()->getMarkupFee(
             )->getPercent();
-        $payoutConstant = $pair->getOutObject()->getPrimeFee()->getConstant() + $pair->getOutObject()->getMarkupFee(
+        $payoutConstant = $pair->getPayout()->getPrimeFee()->getConstant() + $pair->getPayout()->getMarkupFee(
             )->getConstant();
 
         $currencyTmp = $amount - ($amount * $paymentPercent) / 100 - $paymentConstant;
         $cryptocurrencyTmp = $currencyTmp / $course;
 
-        $pair->getOutObject()->setAmount($cryptocurrencyTmp * (1 - $payoutPercent / 100) - $payoutConstant);
+        $pair->getPayout()->setAmount($cryptocurrencyTmp * (1 - $payoutPercent / 100) - $payoutConstant);
     }
 
     /**
@@ -72,19 +72,19 @@ class Payment implements CalculationInterface, RatesInterface
      */
     public static function calculateMax(PairInterface $pair): void
     {
-        $paymentMax = $pair->getInObject()->getPrimeFee()->getMax() + $pair->getInObject()->getMarkupFee()->getMax();
-        $payoutMax = $pair->getOutObject()->getPrimeFee()->getMax() + $pair->getOutObject()->getMarkupFee()->getMax();
+        $paymentMax = $pair->getPayment()->getPrimeFee()->getMax() + $pair->getPayment()->getMarkupFee()->getMax();
+        $payoutMax = $pair->getPayout()->getPrimeFee()->getMax() + $pair->getPayout()->getMarkupFee()->getMax();
 
         self::calculateAmount($pair, $payoutMax);
 
-        if ($paymentMax < $pair->getOutObject()->getAmount()) {
-            $pair->getInObject()->setMax(ceil($paymentMax));
+        if ($paymentMax < $pair->getPayout()->getAmount()) {
+            $pair->getPayment()->setMax(ceil($paymentMax));
             self::calculateAmount($pair, ceil($paymentMax));
-            $pair->getOutObject()->setMax($pair->getOutObject()->getAmount());
+            $pair->getPayout()->setMax($pair->getPayout()->getAmount());
         } else {
-            $pair->getInObject()->setMax(ceil($pair->getOutObject()->getAmount()));
-            self::calculateAmount($pair, ceil($pair->getOutObject()->getAmount()));
-            $pair->getOutObject()->setMax($pair->getOutObject()->getAmount());
+            $pair->getPayment()->setMax(ceil($pair->getPayout()->getAmount()));
+            self::calculateAmount($pair, ceil($pair->getPayout()->getAmount()));
+            $pair->getPayout()->setMax($pair->getPayout()->getAmount());
         }
     }
 
@@ -97,10 +97,10 @@ class Payment implements CalculationInterface, RatesInterface
     {
         $course = Course::calculate($pair);
 
-        $paymentPercent = $pair->getInObject()->getPrimeFee()->getPercent() + $pair->getInObject()->getMarkupFee(
+        $paymentPercent = $pair->getPayment()->getPrimeFee()->getPercent() + $pair->getPayment()->getMarkupFee(
             )->getPercent();
 
-        $payoutPercent = $pair->getOutObject()->getPrimeFee()->getPercent() + $pair->getOutObject()->getMarkupFee(
+        $payoutPercent = $pair->getPayout()->getPrimeFee()->getPercent() + $pair->getPayout()->getMarkupFee(
             )->getPercent();
 
         return ((100 + $payoutPercent) / 100)

@@ -16,10 +16,10 @@ interface PairInterface
     /**
      * @return PairUnitInterface
      */
-    public function getInObject(): PairUnitInterface;
+    public function getPayment(): PairUnitInterface;
 
     /**
      * @return PairUnitInterface
      */
-    public function getOutObject(): PairUnitInterface;
+    public function getPayout(): PairUnitInterface;
 }
