@@ -36,9 +36,14 @@ interface PairUnitInterface
     public function setAmount(float $amount): PairUnitInterface;
 
     /**
-     * @return array
+     * @return FeeInterface
      */
-    public function getFee(): array;
+    public function getPrimeFee(): FeeInterface;
+
+    /**
+     * @return FeeInterface
+     */
+    public function getMarkupFee(): FeeInterface;
 
     /**
      * @return float
