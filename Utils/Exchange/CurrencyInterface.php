@@ -21,10 +21,10 @@ interface CurrencyInterface
     /**
      * @return float
      */
-    public function getInRate(): float;
+    public function getPaymentRate(): float;
 
     /**
      * @return float
      */
-    public function getOutRate(): float;
+    public function getPayoutRate(): float;
 }
