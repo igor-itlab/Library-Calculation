@@ -91,7 +91,7 @@ class Payment implements CalculationInterface, RatesInterface
      */
     public static function calculateRates(PairInterface $pair): float
     {
-        $course = Course::calculate($pair);
+        $course = self::calculateCourse($pair);
 
         $paymentPercent = $pair->getPayment()->getFee()->getPercent();
 
@@ -99,5 +99,19 @@ class Payment implements CalculationInterface, RatesInterface
 
         return ((100 + $payoutPercent) / 100)
             * ($course * ((100 + $paymentPercent) / 100));
+    }
+
+    /**
+     * @param PairInterface $pair
+     * @return float
+     */
+    public static function calculateCourse(PairInterface $pair): float
+    {
+        $inRate = $pair->getPayment()->getCurrency()->getPayoutRate() * ((100 - $pair->getPayment()->getPaymentSystem(
+                    )->getPrice()) / 100);
+        $outRate = $pair->getPayout()->getCurrency()->getPaymentRate() * ((100 - $pair->getPayout()->getPaymentSystem(
+                    )->getPrice()) / 100);
+
+        return $outRate / $inRate * ((100 - $pair->getPercent()) / 100);
     }
 }
