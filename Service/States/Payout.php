@@ -4,6 +4,7 @@
 namespace Calculation\Service\States;
 
 use Calculation\Service\Course;
+use Calculation\Service\Limits;
 use Calculation\Utils\Calculation\CalculationInterface;
 use Calculation\Utils\Calculation\RatesInterface;
 use Calculation\Utils\Exchange\PairInterface;
@@ -15,26 +16,6 @@ use Calculation\Utils\Exchange\PairInterface;
  */
 class Payout implements CalculationInterface, RatesInterface
 {
-    /**
-     * @param PairInterface $pair
-     */
-    public static function calculateMin(PairInterface $pair): void
-    {
-        $paymentMin = $pair->getPayout()->getFee()->getMin();
-        $payoutMin = $pair->getPayment()->getFee()->getMin();
-
-        self::calculateAmount($pair, $payoutMin);
-
-        if ($paymentMin < $pair->getPayment()->getAmount()) {
-            $pair->getPayout()->setMin(ceil($pair->getPayment()->getAmount()));
-            self::calculateAmount($pair, ceil($pair->getPayment()->getAmount()));
-            $pair->getPayment()->setMin($pair->getPayment()->getAmount());
-        } else {
-            $pair->getPayout()->setMin(ceil($paymentMin));
-            self::calculateAmount($pair, ceil($paymentMin));
-            $pair->getPayout()->setMin($pair->getPayment()->getAmount());
-        }
-    }
 
     /**
      * @param PairInterface $pair
@@ -44,7 +25,7 @@ class Payout implements CalculationInterface, RatesInterface
     public static function calculateAmount(PairInterface $pair, float $amount = null): void
     {
         if ($amount === null) {
-            self::calculateMin($pair);
+            Limits::calculateMin($pair);
             $amount = $pair->getPayout()->getMin();
         }
 
@@ -62,27 +43,6 @@ class Payout implements CalculationInterface, RatesInterface
         $cryptocurrencyTmp = $currencyTmp * $course;
 
         $pair->getPayment()->setAmount(($cryptocurrencyTmp + $paymentConstant) / (1 - $paymentPercent / 100));
-    }
-
-    /**
-     * @param PairInterface $pair
-     */
-    public static function calculateMax(PairInterface $pair): void
-    {
-        $paymentMax = $pair->getPayout()->getFee()->getMax();
-        $payoutMax = $pair->getPayment()->getFee()->getMax();
-
-        self::calculateAmount($pair, $payoutMax);
-
-        if ($paymentMax < $pair->getPayment()->getAmount()) {
-            $pair->getPayout()->setMax(ceil($paymentMax));
-            self::calculateAmount($pair, ceil($pair->getPayment()->getAmount()));
-            $pair->getPayment()->setMax($pair->getPayment()->getAmount());
-        } else {
-            $pair->getPayout()->setMax(ceil($pair->getPayment()->getAmount()));
-            self::calculateAmount($pair, ceil($pair->getPayment()->getAmount()));
-            $pair->getPayment()->setMax($pair->getPayment()->getAmount());
-        }
     }
 
     /**
