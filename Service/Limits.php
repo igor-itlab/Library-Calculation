@@ -6,14 +6,14 @@ namespace Calculation\Service;
 
 use Calculation\Service\States\Payment;
 use Calculation\Service\States\Payout;
-use Calculation\Utils\Calculation\CourseInterface;
+use Calculation\Utils\Calculation\LimitsInterface;
 use Calculation\Utils\Exchange\PairInterface;
 
 /**
  * Class Limits
  * @package Calculation\Service
  */
-class Limits
+class Limits implements LimitsInterface
 {
 
     /**

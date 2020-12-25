@@ -27,4 +27,15 @@ interface CurrencyInterface
      * @return float
      */
     public function getPayoutRate(): float;
+
+    /**
+     * @return float
+     */
+    public function getPaymentRateForCalc(): float;
+
+    /**
+     * @return float
+     */
+    public function getPayoutRateForCalc(): float;
+
 }
