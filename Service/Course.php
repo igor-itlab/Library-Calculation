@@ -20,11 +20,15 @@ class Course implements CourseInterface
      */
     public static function calculate(PairInterface $pair): float
     {
-        $inRate = $pair->getPayment()->getCurrency()->getPayoutRateForCalc() * ((100 - $pair->getPayment()->getPaymentSystem(
-                    )->getPrice()) / 100);
-        $outRate = $pair->getPayout()->getCurrency()->getPaymentRateForCalc() * ((100 - $pair->getPayout()->getPaymentSystem(
-                    )->getPrice()) / 100);
+        $inRate = $pair->getPayment()->getCurrency()->getPaymentRateForCalc() * ((100 - $pair->getPayment(
+                    )->getPaymentSystem()->getPrice()) / 100);
+        $outRate = $pair->getPayout()->getCurrency()->getPayoutRateForCalc() * ((100 - $pair->getPayout(
+                    )->getPaymentSystem()->getPrice()) / 100);
 
-        return $outRate / $inRate * ((100 - $pair->getPercent()) / 100);
+        if ($pair->getPayout()->getCurrency()->getTag() == 'CRYPTO') {
+            return $outRate / $inRate * ((100 - $pair->getPercent()) / 100);
+        } else {
+            return $outRate / ($inRate * ((100 - $pair->getPercent()) / 100));
+        }
     }
 }

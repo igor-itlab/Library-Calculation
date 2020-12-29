@@ -18,6 +18,12 @@ interface CurrencyInterface
      */
     public function getRate(): float;
 
+
+    /**
+     * @return float
+     */
+    public function getTag(): float;
+
     /**
      * @return float
      */
