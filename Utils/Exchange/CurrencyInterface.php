@@ -20,9 +20,9 @@ interface CurrencyInterface
 
 
     /**
-     * @return float
+     * @return string
      */
-    public function getTag(): float;
+    public function getTag(): string;
 
     /**
      * @return float
