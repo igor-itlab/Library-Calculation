@@ -57,6 +57,11 @@ class Limits implements LimitsInterface
         }
     }
 
+    /**
+     * @param float $amount
+     * @param float $percent
+     * @return float|int
+     */
     public static function addPairPercent(float $amount, float $percent)
     {
         return $amount + ($amount * $percent) / 100;
