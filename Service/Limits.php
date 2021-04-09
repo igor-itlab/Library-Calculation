@@ -21,8 +21,8 @@ class Limits implements LimitsInterface
      */
     public static function calculateMin(PairInterface $pair): void
     {
-        $paymentMin = $pair->getPayment()->getFee()->getMin();
-        $payoutMin = $pair->getPayout()->getFee()->getMin();
+        $paymentMin = self::addPairPercent($pair->getPayment()->getFee()->getMin(), $pair->getPercent());
+        $payoutMin = self::addPairPercent($pair->getPayout()->getFee()->getMin(), $pair->getPercent());
 
         Payment::calculateAmount($pair, $paymentMin);
 
@@ -55,5 +55,10 @@ class Limits implements LimitsInterface
             Payment::calculateAmount($pair, $paymentMax);
             $pair->getPayout()->setMax($pair->getPayout()->getAmount());
         }
+    }
+
+    public static function addPairPercent(float $amount, float $percent)
+    {
+        return $amount + ($amount * $percent) / 100;
     }
 }
