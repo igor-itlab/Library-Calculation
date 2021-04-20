@@ -26,7 +26,7 @@ class Course implements CourseInterface
         if ($pair->getPayout()->getCurrency()->getTag() == 'CRYPTO') {
             return $outRate / $inRate * ((100 + $pair->getPercent()) / 100);
         } else {
-            return $outRate / ($inRate * ((100 + $pair->getPercent()) / 100));
+            return $outRate / $inRate * ((100 + $pair->getPercent()) / 100);
         }
     }
 }
