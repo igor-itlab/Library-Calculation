@@ -20,8 +20,9 @@ class Payment implements CalculationInterface, RatesInterface
     /**
      * @param PairInterface $pair
      * @param float|null $amount
+     * @param float|null $percent
      */
-    public static function calculateAmount(PairInterface $pair, float $amount = null): void
+    public static function calculateAmount(PairInterface $pair, float $amount = null, float $percent = null): void
     {
         if ($amount === null) {
             Limits::calculateMin($pair);
@@ -30,7 +31,7 @@ class Payment implements CalculationInterface, RatesInterface
             $pair->getPayment()->setAmount($amount);
         }
 
-        $course = Course::calculate($pair);
+        $course = Course::calculate($pair, $percent);
 
         $paymentPercent = $pair->getPayment()->getFee()->getPercent();
         $paymentConstant = $pair->getPayment()->getFee()->getConstant();
@@ -43,8 +44,6 @@ class Payment implements CalculationInterface, RatesInterface
 
         $pair->getPayout()->setAmount($cryptocurrencyTmp * (1 - $payoutPercent / 100) - $payoutConstant);
     }
-
-
 
 
     /**

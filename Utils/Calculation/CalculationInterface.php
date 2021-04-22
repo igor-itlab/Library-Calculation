@@ -13,6 +13,7 @@ interface CalculationInterface
     /**
      * @param PairInterface $pair
      * @param float|null $amount
+     * @param float|null $percent
      */
-    public static function calculateAmount(PairInterface $pair, float $amount = null): void;
+    public static function calculateAmount(PairInterface $pair, float $amount = null, float $percent = null): void;
 }
