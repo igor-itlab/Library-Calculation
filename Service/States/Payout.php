@@ -41,7 +41,7 @@ class Payout implements CalculationInterface, RatesInterface
         $payoutConstant = $pair->getPayout()->getFee()->getConstant();
 
         $currencyTmp = ($amount + $payoutConstant) / (1 - $payoutPercent / 100);
-        $cryptocurrencyTmp = $currencyTmp * $course;
+        $cryptocurrencyTmp = $currencyTmp / $course;
 
         $pair->getPayment()->setAmount(($cryptocurrencyTmp + $paymentConstant) / (1 - $paymentPercent / 100));
     }
