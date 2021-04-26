@@ -24,6 +24,22 @@ class Course implements CourseInterface
         $inRate = $pair->getPayment()->getCurrency()->getPaymentRateForCalc();
         $outRate = $pair->getPayout()->getCurrency()->getPayoutRateForCalc();
 
+        $lastFee = self::calculateLastFee($pair, $percent);
+
+        if ($pair->getPayout()->getCurrency()->getTag() == 'CRYPTO') {
+            return $outRate / $inRate * ((100 - $lastFee) / 100);
+        } else {
+            return $outRate / $inRate * ((100 - $lastFee) / 100);
+        }
+    }
+
+    /**
+     * @param PairInterface $pair
+     * @param float|null $percent
+     * @return float|int
+     */
+    public static function calculateLastFee(PairInterface $pair, float $percent = null)
+    {
         $inCostPrice = $pair->getPayment()->getPaymentSystem()->getPrice();
         $outCostPrice = $pair->getPayout()->getPaymentSystem()->getPrice();
 
@@ -33,12 +49,6 @@ class Course implements CourseInterface
             $pairPercent = $percent;
         }
 
-        $lastFee = (100 - ($pairPercent - $inCostPrice + $outCostPrice)) / 100;
-
-        if ($pair->getPayout()->getCurrency()->getTag() == 'CRYPTO') {
-            return $outRate / $inRate * $lastFee;
-        } else {
-            return $outRate / $inRate * $lastFee;
-        }
+        return $pairPercent - $inCostPrice + $outCostPrice;
     }
 }
