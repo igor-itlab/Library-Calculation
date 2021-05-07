@@ -40,8 +40,8 @@ class Course implements CourseInterface
      */
     public static function calculateLastFee(PairInterface $pair, float $percent = null)
     {
-        $inCostPrice = $pair->getPayment()->getPaymentSystem()->getPrice();
-        $outCostPrice = $pair->getPayout()->getPaymentSystem()->getPrice();
+        $inCostPrice = $pair->getPayment()->getPrice();
+        $outCostPrice = $pair->getPayout()->getPrice();
 
         $pairPercent = $pair->getPercent();
 

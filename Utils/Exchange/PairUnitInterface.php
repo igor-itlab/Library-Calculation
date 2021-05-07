@@ -62,4 +62,9 @@ interface PairUnitInterface
      * @return PairUnitInterface
      */
     public function setMax(float $max): PairUnitInterface;
+
+    /**
+     * @return float
+     */
+    public function getPrice(): float;
 }

@@ -22,9 +22,4 @@ interface PaymentSystemInterface
      * @return string
      */
     public function getSubName(): string;
-
-    /**
-     * @return float
-     */
-    public function getPrice(): float;
 }
