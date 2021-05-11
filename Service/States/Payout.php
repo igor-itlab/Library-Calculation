@@ -52,7 +52,7 @@ class Payout implements CalculationInterface, RatesInterface
      */
     public static function calculateRates(PairInterface $pair): float
     {
-        $course = 1 / Course::calculate($pair);
+        $course = Course::calculate($pair);
 
         $paymentPercent = $pair->getPayment()->getFee()->getPercent();
 
