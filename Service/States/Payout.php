@@ -58,7 +58,7 @@ class Payout implements CalculationInterface, RatesInterface
 
         $payoutPercent = $pair->getPayout()->getFee()->getPercent();
 
-        return ((100 - $paymentPercent) / 100)
-            * ($course * ((100 - $payoutPercent) / 100));
+        return ((100 + $paymentPercent) / 100)
+            * ($course * ((100 + $payoutPercent) / 100));
     }
 }
