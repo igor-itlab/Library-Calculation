@@ -51,4 +51,19 @@ class Course implements CourseInterface
 
         return $pairPercent - $inCostPrice + $outCostPrice;
     }
+
+    /**
+     * @param PairInterface $pair
+     * @param float|null $percent
+     * @return float|int
+     */
+    public static function calculateSurcharge(PairInterface $pair, float $percent = null)
+    {
+        $lastFee = self::calculateLastFee($pair, $percent);
+
+        $inPercent = $pair->getPayment()->getFee()->getPercent();
+        $outPercent = $pair->getPayout()->getFee()->getPercent();
+
+        return $lastFee + $inPercent + $outPercent;
+    }
 }
