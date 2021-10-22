@@ -21,8 +21,8 @@ class Course implements CourseInterface
      */
     public static function calculate(PairInterface $pair, float $percent = null): float
     {
-        $inRate = $pair->getPayment()->getCurrency()->getPaymentRateForCalc();
-        $outRate = $pair->getPayout()->getCurrency()->getPayoutRateForCalc();
+        $inRate = $pair->getPayment()->getCurrency()->getPayoutRateForCalc();
+        $outRate = $pair->getPayout()->getCurrency()->getPaymentRateForCalc();
 
         $lastFee = self::calculateLastFee($pair, $percent);
 
