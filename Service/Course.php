@@ -26,11 +26,7 @@ class Course implements CourseInterface
 
         $lastFee = self::calculateLastFee($pair, $percent);
 
-        if ($pair->getPayout()->getCurrency()->getTag() == 'CRYPTO') {
-            return $inRate / $outRate * ((100 - $lastFee) / 100);
-        } else {
-            return $inRate / $outRate * ((100 - $lastFee) / 100);
-        }
+        return $inRate / $outRate * ((100 - $lastFee) / 100);
     }
 
     /**
