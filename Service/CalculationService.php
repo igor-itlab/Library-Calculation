@@ -8,11 +8,22 @@ use Calculation\Service\States\Payout;
 use stdClass;
 
 /**
- * Class CalculationType
+ * Class CalculationService
  * @package Calculation\Service
  */
-class CalculationType
+class CalculationService
 {
+    /**
+     * @param string $type
+     * @return mixed
+     */
+    public static function calculate(string $type)
+    {
+        $type = strtolower($type);
+
+        return self::getType()->$type;
+    }
+
     /**
      * @return stdClass
      */

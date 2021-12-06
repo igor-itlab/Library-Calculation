@@ -27,7 +27,8 @@
   ],
   "require": {
     "php": ">=7.1.0",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ramsey/uuid": "^4.2"
   },
   "autoload": {
     "psr-4": { "Calculation\\": "" }

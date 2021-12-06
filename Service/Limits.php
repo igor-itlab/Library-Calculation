@@ -21,19 +21,32 @@ class Limits implements LimitsInterface
      */
     public static function calculateMin(PairInterface $pair): void
     {
-        $paymentMin = self::addPairPercent($pair->getPayment()->getFee()->getMin(), $pair->getPercent());
-        $payoutMin = self::addPairPercent($pair->getPayout()->getFee()->getMin(), $pair->getPercent());
+        $payment = $pair->getPayment();
+        $payout = $pair->getPayout();
+
+        $paymentMin = self::calculatePercent($payment->getFee()->getMin(), $pair->getPercent());
+        $payoutMin = self::calculatePercent($payout->getFee()->getMin(), $pair->getPercent());
 
         Payment::calculateAmount($pair, $paymentMin);
 
-        if ($payoutMin < $pair->getPayout()->getAmount()) {
-            $pair->getPayout()->setMin($pair->getPayout()->getAmount());
-            $pair->getPayment()->setMin($paymentMin);
+        if ($payoutMin < $payout->getAmount()) {
+            $payout->setMin($payout->getAmount());
+            $payment->setMin($paymentMin);
         } else {
-            $pair->getPayout()->setMin($payoutMin);
+            $payout->setMin($payoutMin);
             Payout::calculateAmount($pair, $payoutMin);
-            $pair->getPayment()->setMin($pair->getPayment()->getAmount());
+            $payment->setMin($payment->getAmount());
         }
+    }
+
+    /**
+     * @param float $amount
+     * @param float $percent
+     * @return float
+     */
+    public static function calculatePercent(float $amount, float $percent): float
+    {
+        return $amount + ($amount * $percent) / 100;
     }
 
     /**
@@ -41,29 +54,22 @@ class Limits implements LimitsInterface
      */
     public static function calculateMax(PairInterface $pair): void
     {
-        $paymentMax = $pair->getPayment()->getFee()->getMax();
-        $payoutMax = $pair->getPayout()->getFee()->getMax();
+        $payment = $pair->getPayment();
+        $payout = $pair->getPayout();
+
+        $paymentMax = $payment->getFee()->getMax();
+        $payoutMax = $payout->getFee()->getMax();
 
         Payment::calculateAmount($pair, $paymentMax);
 
         if ($payoutMax < $pair->getPayout()->getAmount()) {
-            $pair->getPayout()->setMax($payoutMax);
+            $payout->setMax($payoutMax);
             Payout::calculateAmount($pair, $payoutMax);
-            $pair->getPayment()->setMax($pair->getPayment()->getAmount());
+            $payment->setMax($payment->getAmount());
         } else {
-            $pair->getPayment()->setMax($paymentMax);
+            $payment->setMax($paymentMax);
             Payment::calculateAmount($pair, $paymentMax);
-            $pair->getPayout()->setMax($pair->getPayout()->getAmount());
+            $payout->setMax($payout->getAmount());
         }
-    }
-
-    /**
-     * @param float $amount
-     * @param float $percent
-     * @return float|int
-     */
-    public static function addPairPercent(float $amount, float $percent)
-    {
-        return $amount + ($amount * $percent) / 100;
     }
 }

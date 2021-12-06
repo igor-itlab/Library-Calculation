@@ -17,4 +17,24 @@ interface CourseInterface
      */
     public static function calculate(PairInterface $pair, float $percent = null): float;
 
+    /**
+     * @param PairInterface $pair
+     * @param float|null $percent
+     * @return float
+     */
+    public static function calculateLastFee(PairInterface $pair, float $percent = null): float;
+
+    /**
+     * @param PairInterface $pair
+     * @param float|null $percent
+     * @return float
+     */
+    public static function calculateSurcharge(PairInterface $pair, float $percent = null): float;
+
+    /**
+     * @param string $tag
+     * @param float $rate
+     * @return float
+     */
+    public static function getRate(string $tag, float $rate): float;
 }

@@ -14,7 +14,7 @@ use Calculation\Utils\Exchange\PairInterface;
  * Class Payout
  * @package Calculation
  */
-class Payout implements CalculationInterface, RatesInterface
+class Payout implements CalculationInterface
 {
 
     /**
@@ -45,20 +45,5 @@ class Payout implements CalculationInterface, RatesInterface
 
         $pair->getPayment()->setAmount(($cryptocurrencyTmp + $paymentConstant) / (1 - $paymentPercent / 100));
     }
-
-    /**
-     * @param PairInterface $pair
-     * @return float
-     */
-    public static function calculateRates(PairInterface $pair): float
-    {
-        $course = 1 / Course::calculate($pair);
-
-        $paymentPercent = $pair->getPayment()->getFee()->getPercent();
-
-        $payoutPercent = $pair->getPayout()->getFee()->getPercent();
-
-        return ((100 + $paymentPercent) / 100)
-            * ($course * ((100 + $payoutPercent) / 100));
-    }
+    
 }

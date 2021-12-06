@@ -19,4 +19,11 @@ interface LimitsInterface
      * @param PairInterface $pair
      */
     public static function calculateMax(PairInterface $pair): void;
+
+    /**
+     * @param float $amount
+     * @param float $percent
+     * @return float
+     */
+    public static function calculatePercent(float $amount, float $percent): float;
 }

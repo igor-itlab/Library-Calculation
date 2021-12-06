@@ -20,9 +20,19 @@ interface PairUnitInterface
     public function getPaymentSystem(): PaymentSystemInterface;
 
     /**
-     * @return ServiceInterface
+     * @return FeeInterface
      */
-    public function getService(): ServiceInterface;
+    public function getFee(): FeeInterface;
+
+    /**
+     * @return string
+     */
+    public function getDirection(): string;
+
+    /**
+     * @return float
+     */
+    public function getPrice(): float;
 
     /**
      * @return float
@@ -34,12 +44,6 @@ interface PairUnitInterface
      * @return PairUnitInterface
      */
     public function setAmount(float $amount): PairUnitInterface;
-
-
-    /**
-     * @return FeeInterface
-     */
-    public function getFee(): FeeInterface;
 
     /**
      * @return float
@@ -62,9 +66,4 @@ interface PairUnitInterface
      * @return PairUnitInterface
      */
     public function setMax(float $max): PairUnitInterface;
-
-    /**
-     * @return float
-     */
-    public function getPrice(): float;
 }

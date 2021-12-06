@@ -9,6 +9,16 @@ namespace Calculation\Utils\Exchange;
 interface PairInterface
 {
     /**
+     * @const PAYMENT
+     */
+    public const PAYMENT = "payment";
+
+    /**
+     * @const PAYOUT
+     */
+    public const PAYOUT = "payout";
+
+    /**
      * @return float
      */
     public function getPercent(): float;

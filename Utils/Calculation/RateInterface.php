@@ -10,11 +10,12 @@ use Calculation\Utils\Exchange\PairInterface;
  * Interface RatesInterface
  * @package Calculation\Utils\Calculation
  */
-interface RatesInterface
+interface RateInterface
 {
     /**
      * @param PairInterface $pair
+     * @param string $direction
      * @return float
      */
-    public static function calculateRates(PairInterface $pair): float;
+    public static function calculate(PairInterface $pair, string $direction): float;
 }

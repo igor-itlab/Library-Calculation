@@ -7,14 +7,13 @@ namespace Calculation\Service\States;
 use Calculation\Service\Course;
 use Calculation\Service\Limits;
 use Calculation\Utils\Calculation\CalculationInterface;
-use Calculation\Utils\Calculation\RatesInterface;
 use Calculation\Utils\Exchange\PairInterface;
 
 /**
  * Class Payment
  * @package Calculation
  */
-class Payment implements CalculationInterface, RatesInterface
+class Payment implements CalculationInterface
 {
 
     /**
@@ -43,22 +42,5 @@ class Payment implements CalculationInterface, RatesInterface
         $cryptocurrencyTmp = $currencyTmp * $course;
 
         $pair->getPayout()->setAmount($cryptocurrencyTmp * (1 - $payoutPercent / 100) - $payoutConstant);
-    }
-
-
-    /**
-     * @param PairInterface $pair
-     * @return float
-     */
-    public static function calculateRates(PairInterface $pair): float
-    {
-        $course = Course::calculate($pair);
-
-        $paymentPercent = $pair->getPayment()->getFee()->getPercent();
-
-        $payoutPercent = $pair->getPayout()->getFee()->getPercent();
-
-        return ((100 - $payoutPercent) / 100)
-            * ($course * ((100 - $paymentPercent) / 100));
     }
 }
