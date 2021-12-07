@@ -19,17 +19,17 @@ interface PairInterface
     public const PAYOUT = "payout";
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getPercent(): float;
+    public function getPercent(): ?float;
 
     /**
-     * @return PairUnitInterface
+     * @return PairUnitInterface|null
      */
-    public function getPayment(): PairUnitInterface;
+    public function getPayment(): ?PairUnitInterface;
 
     /**
-     * @return PairUnitInterface
+     * @return PairUnitInterface|null
      */
-    public function getPayout(): PairUnitInterface;
+    public function getPayout(): ?PairUnitInterface;
 }

@@ -9,17 +9,17 @@ namespace Calculation\Utils\Exchange;
 interface PaymentSystemInterface
 {
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string;
+    public function getName(): ?string;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTag(): string;
+    public function getTag(): ?string;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSubName(): string;
+    public function getSubName(): ?string;
 }

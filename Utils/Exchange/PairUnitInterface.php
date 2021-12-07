@@ -10,60 +10,60 @@ namespace Calculation\Utils\Exchange;
 interface PairUnitInterface
 {
     /**
-     * @return CurrencyInterface
+     * @return CurrencyInterface|null
      */
-    public function getCurrency(): CurrencyInterface;
+    public function getCurrency(): ?CurrencyInterface;
 
     /**
-     * @return PaymentSystemInterface
+     * @return PaymentSystemInterface|null
      */
-    public function getPaymentSystem(): PaymentSystemInterface;
+    public function getPaymentSystem(): ?PaymentSystemInterface;
 
     /**
-     * @return FeeInterface
+     * @return FeeInterface|null
      */
-    public function getFee(): FeeInterface;
+    public function getFee(): ?FeeInterface;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDirection(): string;
+    public function getDirection(): ?string;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getPrice(): float;
+    public function getPrice(): ?float;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getAmount(): float;
+    public function getAmount(): ?float;
 
     /**
      * @param float $amount
-     * @return PairUnitInterface
+     * @return PairUnitInterface|null
      */
-    public function setAmount(float $amount): PairUnitInterface;
+    public function setAmount(float $amount): ?PairUnitInterface;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getMin(): float;
+    public function getMin(): ?float;
 
     /**
      * @param float $min
-     * @return PairUnitInterface
+     * @return PairUnitInterface|null
      */
-    public function setMin(float $min): PairUnitInterface;
+    public function setMin(float $min): ?PairUnitInterface;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getMax(): float;
+    public function getMax(): ?float;
 
     /**
      * @param float $max
-     * @return PairUnitInterface
+     * @return PairUnitInterface|null
      */
-    public function setMax(float $max): PairUnitInterface;
+    public function setMax(float $max): ?PairUnitInterface;
 }

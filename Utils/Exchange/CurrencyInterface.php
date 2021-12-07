@@ -19,42 +19,42 @@ interface CurrencyInterface
     public const CRYPTO = 'CRYPTO';
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAsset(): string;
+    public function getAsset(): ?string;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string;
+    public function getName(): ?string;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTag(): string;
+    public function getTag(): ?string;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getBasePurchaseRate(): float;
+    public function getBasePurchaseRate(): ?float;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getBaseSellingRate(): float;
+    public function getBaseSellingRate(): ?float;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getPurchaseRate(): float;
+    public function getPurchaseRate(): ?float;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getSellingRate(): float;
+    public function getSellingRate(): ?float;
 
     /**
-     * @return ServiceInterface
+     * @return ServiceInterface|null
      */
-    public function getService(): ServiceInterface;
+    public function getService(): ?ServiceInterface;
 }

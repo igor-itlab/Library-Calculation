@@ -3,26 +3,29 @@
 
 namespace Calculation\Utils\Exchange;
 
-
+/**
+ * Interface FeeInterface
+ * @package Calculation\Utils\Exchange
+ */
 interface FeeInterface
 {
     /**
-     * @return float
+     * @return float|null
      */
-    public function getPercent(): float;
+    public function getPercent(): ?float;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getConstant(): float;
+    public function getConstant(): ?float;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getMax(): float;
+    public function getMax(): ?float;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getMin(): float;
+    public function getMin(): ?float;
 }

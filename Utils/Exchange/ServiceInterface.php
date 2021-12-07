@@ -11,27 +11,27 @@ use Ramsey\Uuid\UuidInterface;
 interface ServiceInterface
 {
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string;
+    public function getName(): ?string;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTag(): string;
+    public function getTag(): ?string;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTitle(): string;
+    public function getTitle(): ?string;
 
     /**
-     * @return UuidInterface
+     * @return UuidInterface|null
      */
-    public function getConnection(): UuidInterface;
+    public function getConnection(): ?UuidInterface;
 
     /**
-     * @return UuidInterface
+     * @return UuidInterface|null
      */
-    public function getServiceId(): UuidInterface;
+    public function getServiceId(): ?UuidInterface;
 }
