@@ -20,7 +20,7 @@ class Rate implements RateInterface
      */
     public static function calculate(PairInterface $pair, string $direction): float
     {
-        $course = $direction === PairInterface::PAYMENT ? Course::calculate($pair) : 1 / Course::calculate($pair);
+        $course = Course::calculate($pair);
 
         $paymentPercent = $pair->getPayment()->getFee()->getPercent();
         $payoutPercent = $pair->getPayout()->getFee()->getPercent();
