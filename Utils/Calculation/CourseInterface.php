@@ -34,7 +34,8 @@ interface CourseInterface
     /**
      * @param string $tag
      * @param float $rate
+     * @param string $asset
      * @return float
      */
-    public static function getRate(string $tag, float $rate): float;
+    public static function getRate(string $tag, float $rate, string $asset): float;
 }

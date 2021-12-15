@@ -14,6 +14,8 @@ use Calculation\Utils\Exchange\PairInterface;
  */
 class Course implements CourseInterface
 {
+    //TODO fix
+    public const EXPENSIVE_CURRENCIES = ['EUR'];
 
     /**
      * @param PairInterface $pair
@@ -25,8 +27,8 @@ class Course implements CourseInterface
         $paymentCurrency = $pair->getPayment()->getCurrency();
         $payoutCurrency = $pair->getPayout()->getCurrency();
 
-        $paymentRate = self::getRate($paymentCurrency->getTag(), $paymentCurrency->getPurchaseRate());
-        $payoutRate = self::getRate($payoutCurrency->getTag(), $payoutCurrency->getSellingRate());
+        $paymentRate = self::getRate($paymentCurrency->getTag(), $paymentCurrency->getPurchaseRate(), $paymentCurrency->getAsset());
+        $payoutRate = self::getRate($payoutCurrency->getTag(), $payoutCurrency->getSellingRate(), $payoutCurrency->getAsset());
 
         $lastFee = self::calculateLastFee($pair, $percent);
 
@@ -36,12 +38,17 @@ class Course implements CourseInterface
     /**
      * @param string $tag
      * @param float $rate
+     * @param string $asset
      * @return float|int
      */
-    public static function getRate(string $tag, float $rate): float
+    public static function getRate(string $tag, float $rate, string $asset): float
     {
         if ($tag === CurrencyInterface::CURRENCY) {
-            return 1 / $rate;
+            $rate = 1 / $rate;
+
+            if (in_array($asset, self::EXPENSIVE_CURRENCIES)) {
+                $rate = 1 / $rate;
+            }
         }
 
         return $rate;
