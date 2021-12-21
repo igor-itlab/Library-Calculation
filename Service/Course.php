@@ -43,12 +43,8 @@ class Course implements CourseInterface
      */
     public static function getRate(string $tag, float $rate, string $asset): float
     {
-        if ($tag === CurrencyInterface::CURRENCY) {
+        if ($tag === CurrencyInterface::CURRENCY && !in_array($asset, self::EXPENSIVE_CURRENCIES)) {
             $rate = 1 / $rate;
-
-            if (in_array($asset, self::EXPENSIVE_CURRENCIES)) {
-                $rate = 1 / $rate;
-            }
         }
 
         return $rate;
