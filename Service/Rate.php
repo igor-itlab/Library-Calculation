@@ -25,6 +25,6 @@ class Rate implements RateInterface
         $paymentPercent = $pair->getPayment()->getFee()->getPercent();
         $payoutPercent = $pair->getPayout()->getFee()->getPercent();
 
-        return ((100 + $paymentPercent) / 100) * ($course * ((100 + $payoutPercent) / 100));
+        return ((100 + $paymentPercent) / 100) * $course * ((100 - $payoutPercent) / 100);
     }
 }
